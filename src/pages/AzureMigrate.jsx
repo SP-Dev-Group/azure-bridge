@@ -42,17 +42,39 @@ export default function AzureMigrate() {
           Base44 → Azure Migration Hub
         </p>
 
-        {/* Placeholder content */}
-        <div
-          className="rounded-lg p-12 flex items-center justify-center"
-          style={{
-            border: '0.5px solid rgba(56,189,248,0.15)',
-            background: 'rgba(56,189,248,0.02)',
-          }}
-        >
-          <p className="text-sm tracking-widest uppercase" style={{ color: '#38BDF8', opacity: 0.5 }}>
-            Migration tools coming soon
-          </p>
+        {/* Two column layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Left column */}
+          <div
+            className="rounded-lg p-6 min-h-[60vh]"
+            style={{
+              border: '0.5px solid rgba(56,189,248,0.15)',
+              background: 'rgba(56,189,248,0.02)',
+            }}
+          >
+            <h2 className="text-xs tracking-widest uppercase mb-6 font-semibold" style={{ color: '#38BDF8' }}>
+              Steps I Take
+            </h2>
+            <div className="space-y-3">
+              {/* Steps will go here */}
+            </div>
+          </div>
+
+          {/* Right column */}
+          <div
+            className="rounded-lg p-6 min-h-[60vh]"
+            style={{
+              border: '0.5px solid rgba(56,189,248,0.15)',
+              background: 'rgba(56,189,248,0.02)',
+            }}
+          >
+            <h2 className="text-xs tracking-widest uppercase mb-6 font-semibold" style={{ color: '#38BDF8' }}>
+              Steps Recommended
+            </h2>
+            <div className="space-y-3">
+              {/* Recommendations will go here */}
+            </div>
+          </div>
         </div>
       </div>
     </div>

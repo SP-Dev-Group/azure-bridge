@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
 
 const sections = [
   {
@@ -102,6 +102,33 @@ CMD ["run", "--allow-net", "--allow-env", "main.ts"]`,
   },
 ];
 
+function DockerfileBlock({ code }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="relative">
+      <button
+        onClick={handleCopy}
+        className="absolute top-2 right-2 p-1.5 rounded transition-colors"
+        style={{ color: copied ? '#38BDF8' : '#64748B', background: 'rgba(56,189,248,0.08)' }}
+        title="Copy to clipboard"
+      >
+        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+      </button>
+      <pre
+        className="text-xs leading-relaxed rounded-md p-4 overflow-x-auto pr-10"
+        style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#94A3B8', fontFamily: 'var(--font-mono)' }}
+      >{code}</pre>
+    </div>
+  );
+}
+
 function Section({ section }) {
   const [open, setOpen] = useState(false);
 
@@ -170,10 +197,7 @@ function Section({ section }) {
 
           {/* Dockerfile */}
           {section.dockerfile && (
-            <pre
-              className="text-xs leading-relaxed rounded-md p-4 overflow-x-auto"
-              style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#94A3B8', fontFamily: 'var(--font-mono)' }}
-            >{section.dockerfile}</pre>
+            <DockerfileBlock code={section.dockerfile} />
           )}
 
           {/* Note */}

@@ -9,6 +9,10 @@
     "name": {
       "type": "string",
       "description": "Full name of the person"
+    },
+    "Active": {
+      "type": "string",
+      "description": "Partition key for active status"
     }
   },
   "required": [

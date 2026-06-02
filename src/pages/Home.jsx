@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import OrbitalHeader from '../components/header/OrbitalHeader';
 import HeroText from '../components/hero/HeroText';
-import CursorHorizon from '../components/hero/CursorHorizon';
 import NoiseOverlay from '../components/hero/NoiseOverlay';
 import ScanLines from '../components/hero/ScanLines';
 
 export default function Home() {
-  const [mouseY, setMouseY] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleMouseMove = (e) => setMouseY(e.clientY);
     const handleScroll = () => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(maxScroll > 0 ? window.scrollY / maxScroll : 0);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -47,7 +40,6 @@ export default function Home() {
 
       <ScanLines />
       <NoiseOverlay />
-      <CursorHorizon mouseY={mouseY} />
       <OrbitalHeader />
 
       {/* Hero section */}

@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+# ⚠️ CRUCIAL ADDITION: Gives GitHub permission to generate the secure Azure OIDC token
+permissions:
+  id-token: write
+  contents: read
+
 
 jobs:
   build-and-deploy:

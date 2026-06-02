@@ -92,7 +92,7 @@ export default function AzureMigrate() {
               <StepSubheading label="Create App" />
               {[
                 { num: "1", label: "App Services — Create a Web App", detail: "Open App Services. Click the \"Create\" dropdown and select Web App." },
-                { num: "2", label: "Publish: Container", detail: "For Publish, select \"Container\" — not Code." },
+                { num: "2", label: "Publish: Container", detail: "For Publish, select \"Container\" — not Code. For Operating System, select \"Linux\"." },
                 { num: "3", label: "Review & Create", detail: "Click Next. Azure prompts to create a database, which requires another App Service Plan. Click Review & Create to continue." },
               ].map((s, i) => (
                 <StepItem key={i} step={s} />

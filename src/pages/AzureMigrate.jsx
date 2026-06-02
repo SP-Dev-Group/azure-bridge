@@ -143,28 +143,120 @@ export default function AzureMigrate() {
                             <Info className="w-4 h-4" />
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                          <DialogHeader>
-                            <DialogTitle style={{ color: '#E0F2FE' }}>Create Azure Table Storage</DialogTitle>
-                          </DialogHeader>
-                          <div className="space-y-3 text-sm" style={{ color: '#94A3B8' }}>
-                            <ol className="list-decimal list-inside space-y-2">
-                              <li>Log into the Azure Portal.</li>
-                              <li>In the top search bar, type <strong style={{ color: '#38BDF8' }}>Storage accounts</strong> and select it.</li>
-                              <li>Click <strong style={{ color: '#38BDF8' }}>+ Create</strong>.</li>
-                              <li>
-                                <strong style={{ color: '#38BDF8' }}>Fill out the Basics tab:</strong>
-                                <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
-                                  <li><strong style={{ color: '#E0F2FE' }}>Subscription & Resource Group:</strong> Select the exact same Resource Group where your Linux App Service lives to prevent cross-region data transfer fees.</li>
-                                  <li><strong style={{ color: '#E0F2FE' }}>Storage account name:</strong> Enter a unique name using only lowercase letters and numbers (e.g., mystorageaccount123).</li>
-                                  <li><strong style={{ color: '#E0F2FE' }}>Region:</strong> Pick the same region as your App Service.</li>
-                                  <li><strong style={{ color: '#E0F2FE' }}>Performance:</strong> Choose Standard (magnetic/standard drives, which is perfectly suited for text records).</li>
-                                  <li><strong style={{ color: '#E0F2FE' }}>Redundancy:</strong> Select Locally-redundant storage (LRS). This keeps your data replicated safely inside a single datacenter, providing the lowest cost tier for early development.</li>
-                                </ul>
-                              </li>
-                              <li>Click <strong style={{ color: '#38BDF8' }}>Review + create</strong>, then click <strong style={{ color: '#38BDF8' }}>Create</strong>.</li>
-                            </ol>
+                        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle style={{ color: '#E0F2FE' }}>Base44 Data to Azure via Laptop/Chromebook</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4 text-sm" style={{ color: '#94A3B8' }}>
+                          {/* Section 1 */}
+                          <div>
+                            <h3 className="text-base font-bold mb-2" style={{ color: '#38BDF8' }}>1. Azure Portal Setup</h3>
+                            <ul className="list-disc list-inside space-y-2 ml-2">
+                              <li>Log into the Azure Portal and search for <strong style={{ color: '#E0F2FE' }}>Storage accounts</strong>.</li>
+                              <li>Select your storage account: <strong style={{ color: '#E0F2FE' }}>spbase44storage</strong>.</li>
+                              <li>Scroll down the left sidebar to <strong style={{ color: '#E0F2FE' }}>Data storage</strong> and click on <strong style={{ color: '#E0F2FE' }}>Tables</strong>.</li>
+                              <li>Click <strong style={{ color: '#38BDF8' }}>+ Table</strong> at the top, name it exactly <strong style={{ color: '#E0F2FE' }}>People</strong>, and click <strong style={{ color: '#38BDF8' }}>Create</strong>.</li>
+                              <li>Go to <strong style={{ color: '#E0F2FE' }}>Access keys</strong> under the Security + networking section in the sidebar, and copy your <strong style={{ color: '#E0F2FE' }}>Connection string</strong>.</li>
+                            </ul>
                           </div>
+
+                          {/* Section 2 */}
+                          <div>
+                            <h3 className="text-base font-bold mb-2" style={{ color: '#38BDF8' }}>2. Chromebook Linux Environment Prep</h3>
+                            <ul className="list-disc list-inside space-y-2 ml-2">
+                              <li>Ensure your CSV file is named <strong style={{ color: '#E0F2FE' }}>PeopleList.csv</strong> and is placed directly inside your Linux files folder on your Chromebook.</li>
+                              <li>Open your Chromebook Terminal app (Penguin) and run this setup block:</li>
+                            </ul>
+                            <pre className="text-xs rounded-md p-3 mt-2 overflow-x-auto" style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#38BDF8', fontFamily: 'var(--font-mono)' }}>
+                        {`# Update package lists
+                        sudo apt update
+
+                        # Install Node.js if missing (checks version)
+                        node -v || sudo apt install -y nodejs npm
+
+                        # Initialize a project folder if starting fresh
+                        npm init -y
+
+                        # Install the required Azure package securely
+                        npm install @azure/data-tables`}
+                            </pre>
+                          </div>
+
+                          {/* Section 3 */}
+                          <div>
+                            <h3 className="text-base font-bold mb-2" style={{ color: '#38BDF8' }}>3. Creating the Script File</h3>
+                            <p className="mb-2">Run this command to completely reset any old configurations and open a clean file named <strong style={{ color: '#E0F2FE' }}>upload.js</strong> inside the terminal text editor:</p>
+                            <pre className="text-xs rounded-md p-3 overflow-x-auto" style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#38BDF8', fontFamily: 'var(--font-mono)' }}>
+                        {`> upload.js && micro upload.js`}
+                            </pre>
+                          </div>
+
+                          {/* Section 4 */}
+                          <div>
+                            <h3 className="text-base font-bold mb-2" style={{ color: '#38BDF8' }}>4. Code Block: Master Sync Script</h3>
+                            <p className="mb-2">Copy this exact code block, paste it inside your open text editor window using <strong style={{ color: '#E0F2FE' }}>Ctrl + V</strong>, then save and exit (<strong style={{ color: '#E0F2FE' }}>Ctrl + Q</strong>, then press <strong style={{ color: '#E0F2FE' }}>Y</strong>):</p>
+                            <pre className="text-xs rounded-md p-3 overflow-x-auto" style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#94A3B8', fontFamily: 'var(--font-mono)' }}>
+                        {`globalThis.crypto = require('crypto');
+                        const { TableClient } = require('@azure/data-tables');
+                        const fs = require('fs');
+
+                        // Connection configuration
+                        const connStr = "DefaultEndpointsProtocol=https;AccountName=spbase44storage;AccountKey=8dCkvz7rbn3JdasN3DpHAYia9AY5gAzSSf9Kt0lT2nsG1SlvAEf6F7FNseyX6B+802EGayn8KM2X+ASt33kvtA==;EndpointSuffix=core.windows.net";
+                        const client = TableClient.fromConnectionString(connStr, "People");
+
+                        async function run() {
+                        try {
+                        // Read and split the CSV file into an array of rows
+                        const fileContent = fs.readFileSync("PeopleList.csv", "utf8");
+                        const lines = fileContent.split("\\n");
+
+                        // Extract the top header row safely without using bracket characters
+                        const firstLine = lines.shift(); 
+                        const headers = firstLine.replace("\\r", "").split(",").map(h => h.trim());
+
+                        console.log("Starting upload to Azure Table 'People'...");
+
+                        // Process each data row remaining in the array
+                        for (const line of lines) {
+                        if (!line.trim()) continue; // Skip empty rows
+
+                        const values = line.replace("\\r", "").split(",");
+                        let row = {};
+
+                        // Map data fields dynamically to match headers
+                        headers.forEach((h, idx) => {
+                        row[h] = values[idx] ? values[idx].trim().replace(/^"|"$/g, "") : "";
+                        });
+
+                        // Establish essential Azure indexing keys
+                        row.PartitionKey = row.Active || "Staff";
+                        row.RowKey = row.unique_id || row.id;
+
+                        // Push data entry to Azure cloud space if RowKey exists
+                        if (row.RowKey) {
+                        await client.createEntity(row);
+                        console.log("Uploaded: " + row.name);
+                        }
+                        }
+                        console.log("\\nBatch complete!");
+                        } catch (err) {
+                        console.error("Run error:", err.message);
+                        }
+                        }
+
+                        run();`}
+                            </pre>
+                          </div>
+
+                          {/* Section 5 */}
+                          <div>
+                            <h3 className="text-base font-bold mb-2" style={{ color: '#38BDF8' }}>5. Execution</h3>
+                            <p className="mb-2">Run this final terminal command to execute the script. It parses your local files and uploads them straight to your live database:</p>
+                            <pre className="text-xs rounded-md p-3 overflow-x-auto" style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#38BDF8', fontFamily: 'var(--font-mono)' }}>
+                        {`node upload.js`}
+                            </pre>
+                          </div>
+                        </div>
                         </DialogContent>
                       </Dialog>
                     </div>

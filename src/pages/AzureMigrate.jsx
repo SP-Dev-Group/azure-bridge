@@ -90,6 +90,11 @@ export default function AzureMigrate() {
                 <StepItem key={i} step={s} />
               ))}
               <StepSubheading label="Create App" />
+              {[
+                { num: "1", label: "App Services — Create a Web App", detail: "Open App Services. Click the \"Create\" dropdown and select Web App." },
+              ].map((s, i) => (
+                <StepItem key={i} step={s} />
+              ))}
             </div>
           </div>
 

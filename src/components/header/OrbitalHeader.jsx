@@ -33,20 +33,35 @@ export default function OrbitalHeader() {
         ))}
       </div>
 
-      {/* Data button */}
-      <button
-        onClick={() => navigate('/datasample')}
-        className="text-xs tracking-widest uppercase px-4 py-1.5 rounded transition-all"
-        style={{
-          color: '#38BDF8',
-          border: '0.5px solid rgba(56,189,248,0.4)',
-          background: 'rgba(56,189,248,0.05)',
-        }}
-        onMouseEnter={e => e.currentTarget.style.background = 'rgba(56,189,248,0.12)'}
-        onMouseLeave={e => e.currentTarget.style.background = 'rgba(56,189,248,0.05)'}
-      >
-        Data
-      </button>
+      {/* Nav buttons */}
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => navigate('/datasample')}
+          className="text-xs tracking-widest uppercase px-4 py-1.5 rounded transition-all"
+          style={{
+            color: '#38BDF8',
+            border: '0.5px solid rgba(56,189,248,0.4)',
+            background: 'rgba(56,189,248,0.05)',
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(56,189,248,0.12)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'rgba(56,189,248,0.05)'}
+        >
+          Data
+        </button>
+        <button
+          onClick={() => navigate('/base44-azure-migrate')}
+          className="text-xs tracking-widest uppercase px-4 py-1.5 rounded transition-all"
+          style={{
+            color: '#38BDF8',
+            border: '0.5px solid rgba(56,189,248,0.4)',
+            background: 'rgba(56,189,248,0.05)',
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(56,189,248,0.12)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'rgba(56,189,248,0.05)'}
+        >
+          Azure Migrate
+        </button>
+      </div>
 
       {/* System status indicator */}
       <div className="flex items-center gap-3">

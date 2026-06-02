@@ -8,6 +8,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import DataSample from './pages/DataSample';
+import AzureMigrate from './pages/AzureMigrate';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -38,6 +39,7 @@ const AuthenticatedApp = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/datasample" element={<DataSample />} />
+      <Route path="/base44-azure-migrate" element={<AzureMigrate />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

@@ -89,19 +89,19 @@ export default function AzureMigrate() {
               ].map((s, i) => (
                 <StepItem key={i} step={s} />
               ))}
-              <StepSubheading label="Move Database to Azure" />
-              {[
-                { num: "1", label: "Export Base44 Data", detail: "Download your data from Base44 as CSV or JSON exports from the dashboard." },
-                { num: "2", label: "Provision Azure Database", detail: "Create an Azure SQL Database or Azure Database for PostgreSQL in the Azure Portal." },
-                { num: "3", label: "Import Data", detail: "Use Azure Data Studio, SSMS, or the Azure CLI to import your exported data into the new database." },
-              ].map((s, i) => (
-                <StepItem key={i} step={s} />
-              ))}
               <StepSubheading label="Create App" />
               {[
                 { num: "1", label: "App Services — Create a Web App", detail: "Open App Services. Click the \"Create\" dropdown and select Web App." },
                 { num: "2", label: "Publish: Container", detail: "For Publish, select \"Container\" — not Code. For Operating System, select \"Linux\"." },
                 { num: "3", label: "Review & Create", detail: "Click Review & Create to continue." },
+              ].map((s, i) => (
+                <StepItem key={i} step={s} />
+              ))}
+              <StepSubheading label="Move Database to Azure" />
+              {[
+                { num: "1", label: "Export Base44 Data", detail: "Download your data from Base44 as CSV or JSON exports from the dashboard." },
+                { num: "2", label: "Provision Azure Database", detail: "Create an Azure SQL Database or Azure Database for PostgreSQL in the Azure Portal." },
+                { num: "3", label: "Import Data", detail: "Use Azure Data Studio, SSMS, or the Azure CLI to import your exported data into the new database." },
               ].map((s, i) => (
                 <StepItem key={i} step={s} />
               ))}

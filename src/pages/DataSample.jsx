@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Plus, X } from 'lucide-react';
 
 function AddPersonModal({ onClose, onSave }) {
-  const [form, setForm] = useState({ unique_id: '', name: '' });
+  const generateId = () => `P-${String(Math.floor(Math.random() * 900) + 100).padStart(3, '0')}`;
+  const [form, setForm] = useState({ unique_id: generateId(), name: '' });
   const [saving, setSaving] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -56,21 +57,17 @@ function AddPersonModal({ onClose, onSave }) {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="block text-xs tracking-widest uppercase mb-2" style={{ color: '#38BDF8' }}>
-              Unique ID
+              Unique ID <span style={{ color: '#94A3B8', textTransform: 'none', letterSpacing: 'normal' }}>(auto)</span>
             </label>
             <input
-              required
+              readOnly
               value={form.unique_id}
-              onChange={e => setForm(f => ({ ...f, unique_id: e.target.value }))}
-              placeholder="P-011"
-              className="w-full px-4 py-3 rounded text-sm outline-none transition-all font-mono"
+              className="w-full px-4 py-3 rounded text-sm outline-none font-mono cursor-default"
               style={{
-                background: 'rgba(56,189,248,0.04)',
-                border: '0.5px solid rgba(56,189,248,0.2)',
-                color: '#E0F2FE',
+                background: 'rgba(56,189,248,0.02)',
+                border: '0.5px solid rgba(56,189,248,0.1)',
+                color: '#94A3B8',
               }}
-              onFocus={e => e.currentTarget.style.borderColor = 'rgba(56,189,248,0.6)'}
-              onBlur={e => e.currentTarget.style.borderColor = 'rgba(56,189,248,0.2)'}
             />
           </div>
 

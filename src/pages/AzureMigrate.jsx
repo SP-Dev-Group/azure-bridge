@@ -117,6 +117,9 @@ export default function AzureMigrate() {
               >
                 <div className="space-y-2 text-xs">
                   <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
+                    <p style={{ color: '#64748B' }}>Picked Azure Table Storage if your app only pulls data by an explicit ID and you want your monthly database bill to be under $0.50.</p>
+                  </div>
+                  <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
                     <div className="flex items-start justify-between gap-2 mb-0.5">
                       <p className="font-semibold" style={{ color: '#38BDF8' }}>Option 1: Azure Table Storage (NoSQL)</p>
                       <Dialog>
@@ -174,7 +177,7 @@ export default function AzureMigrate() {
               <StepSubheading label="Move Database to Azure" />
               {[
                 { num: "1", label: "Export Base44 Data", detail: "Download your data from Base44 as CSV or JSON exports from the dashboard." },
-                { num: "2", label: "Provision Azure Database", detail: "Picked Azure Table Storage if your app only pulls data by an explicit ID and you want your monthly database bill to be under $0.50." },
+                { num: "2", label: "Provision Azure Database", detail: "Set up the database for storing application data." },
                 { num: "3", label: "Import Data", detail: "Use Azure Data Studio, SSMS, or the Azure CLI to import your exported data into the new database." },
               ].map((s, i) => (
                 <StepItem key={i} step={s} />

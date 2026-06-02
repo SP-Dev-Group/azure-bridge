@@ -60,6 +60,7 @@ export default function AzureMigrate() {
               {[
                 { num: "1", label: "Azure Portal", detail: "Logged into the Azure Portal to begin setup." },
                 { num: "2", label: "App Service Plan", detail: "Created an App Service Plan to host the application." },
+                { num: "3", label: "Choose Linux Operating System", detail: "Selected Linux as the operating system for the App Service Plan." },
               ].map((s, i) => (
                 <div key={i} className="flex gap-3 py-3" style={{ borderBottom: '0.5px solid rgba(56,189,248,0.1)' }}>
                   <span

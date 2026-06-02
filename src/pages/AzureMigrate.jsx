@@ -5,6 +5,29 @@ import NoiseOverlay from '../components/hero/NoiseOverlay';
 import ScanLines from '../components/hero/ScanLines';
 import RecommendedSteps from '../components/azure/RecommendedSteps';
 
+function StepSubheading({ label }) {
+  return (
+    <p className="text-xs font-semibold tracking-widest uppercase mt-5 mb-3" style={{ color: '#38BDF8', opacity: 0.7 }}>{label}</p>
+  );
+}
+
+function StepItem({ step: s }) {
+  return (
+    <div className="flex gap-3 py-3" style={{ borderBottom: '0.5px solid rgba(56,189,248,0.1)' }}>
+      <span
+        className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5"
+        style={{ background: 'rgba(56,189,248,0.12)', color: '#38BDF8' }}
+      >
+        {s.num}
+      </span>
+      <div>
+        <p className="text-xs font-semibold mb-0.5" style={{ color: '#E0F2FE' }}>{s.label}</p>
+        <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>{s.detail}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function AzureMigrate() {
   const navigate = useNavigate();
 
@@ -57,26 +80,16 @@ export default function AzureMigrate() {
               Steps I Take
             </h2>
             <div className="space-y-0">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#38BDF8', opacity: 0.7 }}>Create App Service Plan</p>
+              <StepSubheading label="Create App Service Plan" />
               {[
                 { num: "1", label: "Azure Portal", detail: "Logged into the Azure Portal to begin setup." },
                 { num: "2", label: "App Service Plan", detail: "Created an App Service Plan to host the application." },
                 { num: "3", label: "Choose Linux Operating System", detail: "Selected Linux as the operating system for the App Service Plan." },
                 { num: "4", label: "Initial F1 Free Plan", detail: "Started on the F1 Free tier for initial setup and testing. Will need to upgrade to B1 (~$20 AUD/pm) for custom domains, SSL, and production use." },
               ].map((s, i) => (
-                <div key={i} className="flex gap-3 py-3" style={{ borderBottom: '0.5px solid rgba(56,189,248,0.1)' }}>
-                  <span
-                    className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5"
-                    style={{ background: 'rgba(56,189,248,0.12)', color: '#38BDF8' }}
-                  >
-                    {s.num}
-                  </span>
-                  <div>
-                    <p className="text-xs font-semibold mb-0.5" style={{ color: '#E0F2FE' }}>{s.label}</p>
-                    <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>{s.detail}</p>
-                  </div>
-                </div>
+                <StepItem key={i} step={s} />
               ))}
+              <StepSubheading label="Create App" />
             </div>
           </div>
 

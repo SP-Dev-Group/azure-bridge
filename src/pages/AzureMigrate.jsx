@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import NoiseOverlay from '../components/hero/NoiseOverlay';
 import ScanLines from '../components/hero/ScanLines';
+import RecommendedSteps from '../components/azure/RecommendedSteps';
 
 export default function AzureMigrate() {
   const navigate = useNavigate();
@@ -71,9 +72,7 @@ export default function AzureMigrate() {
             <h2 className="text-xs tracking-widest uppercase mb-6 font-semibold" style={{ color: '#38BDF8' }}>
               Steps Recommended
             </h2>
-            <div className="space-y-3">
-              {/* Recommendations will go here */}
-            </div>
+            <RecommendedSteps />
           </div>
         </div>
       </div>

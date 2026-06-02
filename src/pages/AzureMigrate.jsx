@@ -57,6 +57,7 @@ export default function AzureMigrate() {
               Steps I Take
             </h2>
             <div className="space-y-0">
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#38BDF8', opacity: 0.7 }}>Create App Service Plan</p>
               {[
                 { num: "1", label: "Azure Portal", detail: "Logged into the Azure Portal to begin setup." },
                 { num: "2", label: "App Service Plan", detail: "Created an App Service Plan to host the application." },

@@ -115,12 +115,12 @@ export default function AzureMigrate() {
               >
                 <div className="space-y-2 text-xs">
                   <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
-                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 1: Azure SQL Database (Relational)</p>
-                    <p style={{ color: '#64748B' }}>~$5-13/mo (Basic/Standard DTU). Use for structured data with relationships (users, orders, transactions). Supports T-SQL queries, stored procedures, and enterprise features.</p>
+                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 1: Azure Table Storage (NoSQL)</p>
+                    <p style={{ color: '#64748B' }}>~$1-5/mo for small apps. Key-value storage for simple lookups (user profiles, session data, logs). Extremely cheap, scales automatically, but limited query capabilities.</p>
                   </div>
                   <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
-                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 2: Azure Table Storage (NoSQL)</p>
-                    <p style={{ color: '#64748B' }}>~$1-5/mo for small apps. Key-value storage for simple lookups (user profiles, session data, logs). Extremely cheap, scales automatically, but limited query capabilities.</p>
+                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 2: Azure SQL Database (Relational)</p>
+                    <p style={{ color: '#64748B' }}>~$5-13/mo (Basic/Standard DTU). Use for structured data with relationships (users, orders, transactions). Supports T-SQL queries, stored procedures, and enterprise features.</p>
                   </div>
                   <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
                     <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 3: Azure Cosmos DB (NoSQL)</p>

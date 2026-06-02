@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Info } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import NoiseOverlay from '../components/hero/NoiseOverlay';
 import ScanLines from '../components/hero/ScanLines';
 import RecommendedSteps from '../components/azure/RecommendedSteps';
@@ -115,8 +117,40 @@ export default function AzureMigrate() {
               >
                 <div className="space-y-2 text-xs">
                   <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
-                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 1: Azure Table Storage (NoSQL)</p>
-                    <p style={{ color: '#64748B' }}>~$1-5/mo for small apps. Key-value storage for simple lookups (user profiles, session data, logs). Extremely cheap, scales automatically, but limited query capabilities.</p>
+                    <div className="flex items-start justify-between gap-2 mb-0.5">
+                      <p className="font-semibold" style={{ color: '#38BDF8' }}>Option 1: Azure Table Storage (NoSQL)</p>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="ghost" size="sm" className="h-5 w-5 p-0 shrink-0">
+                            <Info className="w-3 h-3" style={{ color: '#38BDF8' }} />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle style={{ color: '#E0F2FE' }}>Create Azure Table Storage</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-3 text-sm" style={{ color: '#94A3B8' }}>
+                            <ol className="list-decimal list-inside space-y-2">
+                              <li>Log into the Azure Portal.</li>
+                              <li>In the top search bar, type <strong style={{ color: '#38BDF8' }}>Storage accounts</strong> and select it.</li>
+                              <li>Click <strong style={{ color: '#38BDF8' }}>+ Create</strong>.</li>
+                              <li>
+                                <strong style={{ color: '#38BDF8' }}>Fill out the Basics tab:</strong>
+                                <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
+                                  <li><strong style={{ color: '#E0F2FE' }}>Subscription & Resource Group:</strong> Select the exact same Resource Group where your Linux App Service lives to prevent cross-region data transfer fees.</li>
+                                  <li><strong style={{ color: '#E0F2FE' }}>Storage account name:</strong> Enter a unique name using only lowercase letters and numbers (e.g., mystorageaccount123).</li>
+                                  <li><strong style={{ color: '#E0F2FE' }}>Region:</strong> Pick the same region as your App Service.</li>
+                                  <li><strong style={{ color: '#E0F2FE' }}>Performance:</strong> Choose Standard (magnetic/standard drives, which is perfectly suited for text records).</li>
+                                  <li><strong style={{ color: '#E0F2FE' }}>Redundancy:</strong> Select Locally-redundant storage (LRS). This keeps your data replicated safely inside a single datacenter, providing the lowest cost tier for early development.</li>
+                                </ul>
+                              </li>
+                              <li>Click <strong style={{ color: '#38BDF8' }}>Review + create</strong>, then click <strong style={{ color: '#38BDF8' }}>Create</strong>.</li>
+                            </ol>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                    <p style={{ color: '#64748B' }}>Picked Azure Table Storage if your app only pulls data by an explicit ID and you want your monthly database bill to be under $0.50.</p>
                   </div>
                   <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
                     <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 2: Azure SQL Database (Relational)</p>

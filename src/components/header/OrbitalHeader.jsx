@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrbitalHeader() {
   const [revealed, setRevealed] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => setRevealed(true), 100);
@@ -30,6 +32,21 @@ export default function OrbitalHeader() {
           </motion.span>
         ))}
       </div>
+
+      {/* Data button */}
+      <button
+        onClick={() => navigate('/datasample')}
+        className="text-xs tracking-widest uppercase px-4 py-1.5 rounded transition-all"
+        style={{
+          color: '#38BDF8',
+          border: '0.5px solid rgba(56,189,248,0.4)',
+          background: 'rgba(56,189,248,0.05)',
+        }}
+        onMouseEnter={e => e.currentTarget.style.background = 'rgba(56,189,248,0.12)'}
+        onMouseLeave={e => e.currentTarget.style.background = 'rgba(56,189,248,0.05)'}
+      >
+        Data
+      </button>
 
       {/* System status indicator */}
       <div className="flex items-center gap-3">

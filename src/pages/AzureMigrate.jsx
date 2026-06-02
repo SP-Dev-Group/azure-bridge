@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Info } from 'lucide-react';
+import { ArrowLeft, Info, MoreHorizontal } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import NoiseOverlay from '../components/hero/NoiseOverlay';
@@ -36,7 +36,7 @@ function StepItem({ step: s, expandable, children }) {
               className="text-xs transition-colors"
               style={{ color: open ? '#38BDF8' : '#64748B' }}
             >
-              {open ? '−' : '+'}
+              <MoreHorizontal className="w-4 h-4" />
             </button>
           )}
         </div>

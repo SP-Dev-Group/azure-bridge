@@ -115,7 +115,15 @@ export default function DataSample() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [autoLoading, setAutoLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleAutoAdd = async () => {
+    setAutoLoading(true);
+    const res = await base44.functions.invoke('generatePerson', {});
+    setPeople(prev => [...prev, res.data.record]);
+    setAutoLoading(false);
+  };
 
   useEffect(() => {
     base44.entities.People.list().then((data) => {
@@ -154,7 +162,7 @@ export default function DataSample() {
         </button>
 
         {/* Title row */}
-        <div className="flex items-end justify-between mb-12">
+        <div className="flex items-end justify-between gap-4 mb-12">
           <div>
             <h1
               className="text-4xl md:text-6xl font-extrabold uppercase tracking-tight mb-2 font-display"
@@ -166,6 +174,23 @@ export default function DataSample() {
               Data Sample
             </p>
           </div>
+
+          <div className="flex items-center gap-3">
+          {/* Auto Add button */}
+          <button
+            onClick={handleAutoAdd}
+            disabled={autoLoading}
+            className="flex items-center gap-2 px-5 py-2.5 rounded text-sm tracking-widest uppercase font-semibold transition-all"
+            style={{
+              background: 'rgba(56,189,248,0.04)',
+              border: '0.5px solid rgba(56,189,248,0.2)',
+              color: '#94A3B8',
+            }}
+            onMouseEnter={e => { if (!autoLoading) e.currentTarget.style.background = 'rgba(56,189,248,0.1)'; }}
+            onMouseLeave={e => { if (!autoLoading) e.currentTarget.style.background = 'rgba(56,189,248,0.04)'; }}
+          >
+            {autoLoading ? 'Generating...' : '⚡ Add Auto Sample'}
+          </button>
 
           {/* Add button */}
           <button
@@ -182,6 +207,7 @@ export default function DataSample() {
             <Plus className="w-4 h-4" />
             Add Record
           </button>
+          </div>
         </div>
 
         {/* Table */}

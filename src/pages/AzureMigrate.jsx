@@ -129,7 +129,7 @@ export default function AzureMigrate() {
                 <StepItem key={i} step={s} />
               ))}
               <StepItem
-                step={{ num: "2", label: "Provision Azure Database", detail: "Set up the database for storing application data." }}
+                step={{ num: "2", label: "Provision Azure Database", detail: "Set up the database for storing application data. Picked Option 1 - Azure Table." }}
                 expandable
               >
                 <div className="space-y-2 text-xs">

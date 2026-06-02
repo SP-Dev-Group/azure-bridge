@@ -1,18 +1,19 @@
 FROM denoland/deno:alpine-1.46.3
 
-# Set working directory
+# Set the application workspace
 WORKDIR /app
 
-# Prefer to run as a non-privileged user
+# Run the runtime container as a secure, non-root user
 USER deno
 
-# Cache dependencies ahead of time
+# Cache dependencies early to optimize future build times
 COPY deno.json* .
-# If your app uses a lockfile, uncomment the line below:
-# COPY deno.lock .
 
-# Copy the rest of your app source code
+# Copy the rest of your local base44 source code
 COPY . .
 
-# Grant network permissions natively required by Deno
+# Expose port 80 for the Azure Web App connection mapping
+EXPOSE 80
+
+# Run Deno with production network and environment flag permissions
 CMD ["run", "--allow-net", "--allow-env", "main.ts"]

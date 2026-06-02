@@ -56,8 +56,24 @@ export default function AzureMigrate() {
             <h2 className="text-xs tracking-widest uppercase mb-6 font-semibold" style={{ color: '#38BDF8' }}>
               Steps I Take
             </h2>
-            <div className="space-y-3">
-              {/* Steps will go here */}
+            <div className="space-y-0">
+              {[
+                { num: "1", label: "Azure Portal", detail: "Logged into the Azure Portal to begin setup." },
+                { num: "2", label: "App Service Plan", detail: "Created an App Service Plan to host the application." },
+              ].map((s, i) => (
+                <div key={i} className="flex gap-3 py-3" style={{ borderBottom: '0.5px solid rgba(56,189,248,0.1)' }}>
+                  <span
+                    className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5"
+                    style={{ background: 'rgba(56,189,248,0.12)', color: '#38BDF8' }}
+                  >
+                    {s.num}
+                  </span>
+                  <div>
+                    <p className="text-xs font-semibold mb-0.5" style={{ color: '#E0F2FE' }}>{s.label}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>{s.detail}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

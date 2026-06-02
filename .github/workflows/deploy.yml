@@ -36,3 +36,11 @@ jobs:
         tags: |
           ${{ secrets.ACR_LOGIN_SERVER }}/base44app:latest
           ${{ secrets.ACR_LOGIN_SERVER }}/base44app:${{ github.sha }}
+          
+# 5. Explicitly tell Azure Web App to pull the new container image
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: 'sp-base44-az-app' # Replace with your exact Azure Web App name
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: '${{ secrets.ACR_LOGIN_SERVER }}/base44app:latest'

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import NoiseOverlay from '../components/hero/NoiseOverlay';
@@ -11,7 +11,9 @@ function StepSubheading({ label }) {
   );
 }
 
-function StepItem({ step: s }) {
+function StepItem({ step: s, expandable, children }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="flex gap-3 py-3" style={{ borderBottom: '0.5px solid rgba(56,189,248,0.1)' }}>
       <span
@@ -20,9 +22,27 @@ function StepItem({ step: s }) {
       >
         {s.num}
       </span>
-      <div>
-        <p className="text-xs font-semibold mb-0.5" style={{ color: '#E0F2FE' }}>{s.label}</p>
-        <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>{s.detail}</p>
+      <div className="flex-1">
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <p className="text-xs font-semibold mb-0.5" style={{ color: '#E0F2FE' }}>{s.label}</p>
+            <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>{s.detail}</p>
+          </div>
+          {expandable && (
+            <button
+              onClick={() => setOpen(o => !o)}
+              className="text-xs transition-colors"
+              style={{ color: open ? '#38BDF8' : '#64748B' }}
+            >
+              {open ? '−' : '+'}
+            </button>
+          )}
+        </div>
+        {expandable && open && children && (
+          <div className="mt-3 space-y-2">
+            {children}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -89,6 +109,26 @@ export default function AzureMigrate() {
               ].map((s, i) => (
                 <StepItem key={i} step={s} />
               ))}
+              <StepItem
+                step={{ num: "5", label: "Provision Azure Database", detail: "Set up the database for storing application data." }}
+                expandable
+              >
+                <div className="space-y-2 text-xs">
+                  <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
+                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 1: Azure SQL Database (Relational)</p>
+                    <p style={{ color: '#64748B' }}>~$5-13/mo (Basic/Standard DTU). Use for structured data with relationships (users, orders, transactions). Supports T-SQL queries, stored procedures, and enterprise features.</p>
+                  </div>
+                  <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
+                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 2: Azure Table Storage (NoSQL)</p>
+                    <p style={{ color: '#64748B' }}>~$1-5/mo for small apps. Key-value storage for simple lookups (user profiles, session data, logs). Extremely cheap, scales automatically, but limited query capabilities.</p>
+                  </div>
+                  <div className="pl-3" style={{ borderLeft: '2px solid rgba(56,189,248,0.2)' }}>
+                    <p className="font-semibold mb-0.5" style={{ color: '#38BDF8' }}>Option 3: Azure Cosmos DB (NoSQL)</p>
+                    <p style={{ color: '#64748B' }}>~$25+/mo. Global distribution, multi-model support. Use for high-scale apps needing low-latency worldwide access. Overkill for small migrations.</p>
+                  </div>
+                  <p className="italic" style={{ color: '#64748B' }}>💡 Recommendation: Start with Azure SQL Basic (~$5/mo) for most Base44 migrations. Easy to scale up later.</p>
+                </div>
+              </StepItem>
               <StepSubheading label="Create App" />
               {[
                 { num: "1", label: "App Services — Create a Web App", detail: "Open App Services. Click the \"Create\" dropdown and select Web App." },

@@ -140,7 +140,7 @@ export default function AzureMigrate() {
               <StepSubheading label="Move Database to Azure" />
               {[
                 { num: "1", label: "Export Base44 Data", detail: "Download your data from Base44 as CSV or JSON exports from the dashboard." },
-                { num: "2", label: "Provision Azure Database", detail: "~$1-5/mo for small apps. Key-value storage for simple lookups (user profiles, session data, logs). Extremely cheap, scales automatically, but limited query capabilities." },
+                { num: "2", label: "Provision Azure Database", detail: "Pick Azure Table Storage if your app only pulls data by an explicit ID and you want your monthly database bill to be under $0.50." },
                 { num: "3", label: "Import Data", detail: "Use Azure Data Studio, SSMS, or the Azure CLI to import your exported data into the new database." },
               ].map((s, i) => (
                 <StepItem key={i} step={s} />

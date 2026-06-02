@@ -138,8 +138,8 @@ export default function AzureMigrate() {
                       <p className="font-semibold" style={{ color: '#38BDF8' }}>Option 1: Azure Table Storage (NoSQL)</p>
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button variant="ghost" size="sm" className="h-5 w-5 p-0 shrink-0">
-                            <Info className="w-3 h-3" style={{ color: '#38BDF8' }} />
+                          <Button variant="ghost" size="sm" className="h-6 w-6 p-0 shrink-0 rounded-full" style={{ background: 'rgba(56,189,248,0.15)', color: '#38BDF8' }}>
+                            <Info className="w-4 h-4" />
                           </Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">

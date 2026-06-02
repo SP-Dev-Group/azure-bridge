@@ -64,6 +64,34 @@ const sections = [
     ]
   },
   {
+    title: "The Production Dockerfile",
+    dockerfile: `# Use the official Deno image from Docker Hub
+FROM denoland/deno:alpine-1.44.4
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Prefer running as a non-privileged user for security
+USER deno
+
+# Cache the dependencies first (speeds up subsequent cloud builds)
+COPY deps.ts .
+RUN deno cache deps.ts
+
+# Copy the rest of your application source files
+COPY . .
+
+# Compile or cache your primary entry point file
+RUN deno cache main.ts
+
+# Expose the network port (Cloud Run defaults to 8080, Azure is configurable)
+EXPOSE 8080
+
+# Grant necessary Deno permissions (Network access, Env access)
+CMD ["run", "--allow-net", "--allow-env", "main.ts"]`,
+    note: "Add a file named Dockerfile to the root of your project. Both Azure and Google Cloud read this file to understand how to start your Deno server."
+  },
+  {
     title: "Deno on Azure & Google Cloud",
     items: [
       { label: "Azure — Web App for Containers", detail: "Set Publish: Docker Container when creating App Service. Azure pulls your container from GitHub Packages or Azure Container Registry and runs Deno on Linux." },
@@ -138,6 +166,14 @@ function Section({ section }) {
                 </tbody>
               </table>
             </div>
+          )}
+
+          {/* Dockerfile */}
+          {section.dockerfile && (
+            <pre
+              className="text-xs leading-relaxed rounded-md p-4 overflow-x-auto"
+              style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#94A3B8', fontFamily: 'var(--font-mono)' }}
+            >{section.dockerfile}</pre>
           )}
 
           {/* Note */}

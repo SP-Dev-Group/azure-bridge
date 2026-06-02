@@ -97,37 +97,6 @@ export default function AzureMigrate() {
               ].map((s, i) => (
                 <StepItem key={i} step={s} />
               ))}
-              <StepSubheading label="The Dockerfile" />
-              <p className="text-xs leading-relaxed mb-3" style={{ color: '#64748B' }}>
-                To run your Base44 Deno app on Azure or Google Cloud, add a <span style={{ color: '#38BDF8' }}>Dockerfile</span> to the root of your project. Both clouds read this file to understand how to start your server.
-              </p>
-              <pre
-                className="text-xs leading-relaxed rounded-md p-4 overflow-x-auto"
-                style={{ background: 'rgba(56,189,248,0.05)', border: '0.5px solid rgba(56,189,248,0.15)', color: '#94A3B8', fontFamily: 'var(--font-mono)' }}
-              >{`# Use the official Deno image from Docker Hub
-FROM denoland/deno:alpine-1.44.4
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Prefer running as a non-privileged user for security
-USER deno
-
-# Cache the dependencies first (speeds up subsequent cloud builds)
-COPY deps.ts .
-RUN deno cache deps.ts
-
-# Copy the rest of your application source files
-COPY . .
-
-# Compile or cache your primary entry point file
-RUN deno cache main.ts
-
-# Expose the network port (Cloud Run defaults to 8080, Azure is configurable)
-EXPOSE 8080
-
-# Grant necessary Deno permissions (Network access, Env access)
-CMD ["run", "--allow-net", "--allow-env", "main.ts"]`}</pre>
             </div>
           </div>
 

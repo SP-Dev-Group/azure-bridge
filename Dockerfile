@@ -7,11 +7,8 @@ WORKDIR /app
 USER deno
 
 # Copy EVERYTHING from your GitHub repository into /app
-# This means your folder structure inside the container becomes /app/src/utils/main.ts
+# Your file structure inside the container becomes /app/src/main.ts
 COPY . .
 
-# 1. Cache the dependencies using the correct nested path
-RUN deno cache src/utils/main.ts
-
-# 2. Update the startup command to execute the nested file
-CMD ["run", "--allow-net", "--allow-env", "src/utils/main.ts"]
+# Let Deno handle caching automatically at startup and point to the true path
+CMD ["run", "--allow-net", "--allow-env", "src/main.ts"]

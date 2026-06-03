@@ -15,5 +15,8 @@ COPY . .
 # Expose port 80 for the Azure Web App connection mapping
 EXPOSE 80
 
-# Run Deno with production network and environment flag permissions
-CMD ["run", "--allow-net", "--allow-env", "main.ts"]
+# 1. Cache the dependencies using the correct nested path
+RUN deno cache src/utils/main.ts
+
+# 2. Update the startup command to execute the nested file
+CMD ["run", "--allow-net", "--allow-env", "src/utils/main.ts"]

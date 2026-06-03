@@ -1,19 +1,21 @@
 FROM denoland/deno:alpine
 
-# Set the working directory inside the container
+# 1. Set the working directory inside the container
 WORKDIR /app
 
-# Prefer to run as a non-root user for security
-USER deno
-
-# Copy EVERYTHING from your GitHub repository into /app
+# 2. Copy EVERYTHING from your repository into /app while root
+# (We must copy files BEFORE switching users so Deno has permission to read them)
 COPY . .
 
-# ... (Keep your existing setup up to the COPY step)
-
-# Build your React app assets (assuming you use vite build)
-# If your build runs on GitHub Actions instead, you can omit this run step
+# 3. Build your React app assets into the /app/dist folder
+# (If your project uses standard Vite, this runs your build command)
 RUN deno task build || true
 
-# Run the backend server instead of the front-end entry point
+# 4. Change ownership of the files to the secure, non-root deno user
+RUN chown -R deno:deno /app
+
+# 5. Switch to the secure non-root user for runtime execution
+USER deno
+
+# 6. Run the static file server with necessary sandbox permissions
 CMD ["run", "--allow-net", "--allow-env", "--allow-read", "--allow-sys", "server.js"]

@@ -7,9 +7,7 @@ WORKDIR /app
 USER deno
 
 # Copy EVERYTHING from your GitHub repository into /app
-# This includes index.html and the /src/main.jsx path cleanly
 COPY . .
 
-# We skip the explicit build-time RUN cache step to bypass strict compilation blockers.
-# Deno will resolve and cache everything automatically on the fly at startup!
-CMD ["run", "--allow-net", "--allow-env", "src/main.jsx"]
+# Execute the application with net, env, and system monitoring permissions
+CMD ["run", "--allow-net", "--allow-env", "--allow-sys", "src/main.jsx"]

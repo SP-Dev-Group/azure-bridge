@@ -7,11 +7,10 @@ WORKDIR /app
 USER deno
 
 # Copy EVERYTHING from your GitHub repository into /app
-# This maps your code to /app/src/main.ts
 COPY . .
 
-# Cache the dependencies at build time using the correct path
-RUN deno cache src/main.ts
+# Cache the dependencies at build time using the true JSX path
+RUN deno cache src/main.jsx
 
-# Execute the application on startup
-CMD ["run", "--allow-net", "--allow-env", "src/main.ts"]
+# Execute the application on startup using the true JSX path
+CMD ["run", "--allow-net", "--allow-env", "src/main.jsx"]

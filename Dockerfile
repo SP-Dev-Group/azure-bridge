@@ -1,21 +1,26 @@
 FROM denoland/deno:alpine
 
-# 1. Set the working directory inside the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# 2. Copy EVERYTHING from your repository into /app while root
-# (We must copy files BEFORE switching users so Deno has permission to read them)
+# 1. Copy package files first to optimize layer caching
+COPY package*.json ./
+
+# 2. Run a clean install of all dependencies required to build the React application
+# (Deno's runtime natively supports running npm scripts and binaries)
+RUN deno install
+
+# 3. Copy the rest of your source code files into the working directory
 COPY . .
 
-# 3. Build your React app assets into the /app/dist folder
-# (If your project uses standard Vite, this runs your build command)
-RUN deno task build || true
+# 4. Compile your React production assets into the /app/dist folder
+RUN deno run --allow-run --allow-read --allow-write npm:run build
 
-# 4. Change ownership of the files to the secure, non-root deno user
+# 5. Correct file access ownership for the secure execution profile
 RUN chown -R deno:deno /app
 
-# 5. Switch to the secure non-root user for runtime execution
+# 6. Drop permissions down to the secure application runtime account
 USER deno
 
-# 6. Run the static file server with necessary sandbox permissions
+# 7. Start up your custom web asset proxy server
 CMD ["run", "--allow-net", "--allow-env", "--allow-read", "--allow-sys", "server.js"]

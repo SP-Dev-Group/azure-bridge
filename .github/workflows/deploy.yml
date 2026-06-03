@@ -48,9 +48,10 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # 6. Explicitly tell the Web App to pull the fresh Deno container image
+# 6. Explicitly pull the fresh Deno container image straight into Production
     - name: Deploy Container to Azure Web App
       uses: azure/webapps-deploy@v3
       with:
-        app-name: 'sp-base44-az-app' # Replace with your exact Azure Web App name
+        app-name: 'sp-base44-az-app'        # 👈 Verified from your Resource ID
+        slot-name: 'production'             # 👈 Add this line to block random slots!
         images: '${{ secrets.ACR_LOGIN_SERVER }}/base44app:latest'

@@ -7,8 +7,11 @@ WORKDIR /app
 USER deno
 
 # Copy EVERYTHING from your GitHub repository into /app
-# Your file structure inside the container becomes /app/src/main.ts
+# This maps your code to /app/src/main.ts
 COPY . .
 
-# Let Deno handle caching automatically at startup and point to the true path
+# Cache the dependencies at build time using the correct path
+RUN deno cache src/main.ts
+
+# Execute the application on startup
 CMD ["run", "--allow-net", "--allow-env", "src/main.ts"]

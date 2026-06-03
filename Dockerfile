@@ -1,19 +1,14 @@
-FROM denoland/deno:alpine-1.46.3
+FROM denoland/deno:alpine
 
-# Set the application workspace
+# Set the working directory inside the container
 WORKDIR /app
 
-# Run the runtime container as a secure, non-root user
+# Prefer to run as a non-root user for security
 USER deno
 
-# Cache dependencies early to optimize future build times
-COPY deno.json* .
-
-# Copy the rest of your local base44 source code
+# Copy EVERYTHING from your GitHub repository into /app
+# This means your folder structure inside the container becomes /app/src/utils/main.ts
 COPY . .
-
-# Expose port 80 for the Azure Web App connection mapping
-EXPOSE 80
 
 # 1. Cache the dependencies using the correct nested path
 RUN deno cache src/utils/main.ts
